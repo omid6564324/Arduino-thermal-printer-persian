@@ -1,0 +1,235 @@
+#include         <SoftwareSerial.h>                 
+#include         <Adafruit_Thermal.h> 
+             
+         
+SoftwareSerial   mySerial(10, 11);                     
+Adafruit_Thermal printer(&mySerial);                 
+char*            PPRINT(char*,char*);  //دستور  پرینت فارسی
+//   برنامه چاپ متن فارسی در آردینو 
+//کاری از محمد مختاری
+void setup(){  
+
+
+  Serial.begin(9600);  //  رنج پرینتر  حرارتی
+
+
+
+  
+//printer.printBitmap(adaqrcode_width, adaqrcode_height, adaqrcode_data);
+printer.setCodePage(CODEPAGE_IRAN2); 
+printer.justify('r');
+
+
+
+
+
+printer.println(PPRINT(" دستگاه پرینتر ")); 
+
+printer.feed(3);    
+                              
+}                                                    
+                                                     
+
+
+// کلاس پرینت فارسی                                                      
+
+
+
+char* PPRINT(char* str){ 
+uint8_t i=0, j=0;                                                                                                                    
+    while(str[i]){  
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xA2){str[j] = (uint8_t(0x8D)) ; i++;}else //   �
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xA7){str[j] = (uint8_t(0x91)) ; i++;}else //   �
+
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xA3){str[j] = (uint8_t(0x90)) ; i++;}else //   �
+         
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xA8){str[j] = (uint8_t(0x93)) ; i++;}else// �  
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0xBE){str[j] = (uint8_t(0x95)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xAA){str[j] = (uint8_t(0x97)) ; i++;}else // �
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xAB){str[j] = (uint8_t(0x99)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xAC){str[j] = (uint8_t(0x9B)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xDA && uint8_t(str[i+1]) == 0x86){str[j] = (uint8_t(0x9D)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xAD){str[j] = (uint8_t(0x9F)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xAE){str[j] = (uint8_t(0xA1)) ; i++;}else  //�
+         
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xAF){str[j] = (uint8_t(0xA2)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB0){str[j] = (uint8_t(0xA3)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB1){str[j] = (uint8_t(0xA4)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB2){str[j] = (uint8_t(0xA5)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xDA && uint8_t(str[i+1]) == 0x98){str[j] = (uint8_t(0xA6)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x88){str[j] = (uint8_t(0xF8)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x87){str[j] = (uint8_t(0xFA)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xDB && uint8_t(str[i+1]) == 0x8C){str[j] = (uint8_t(0xFE)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xA1){str[j] = (uint8_t(0x8F)) ; i++;}else //   �
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0x9F){str[j] = (uint8_t(0x8C)) ; i++;}else //   ?
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0x9F){str[j] = (uint8_t(0x8C)) ; i++;}else //   -
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0x9F){str[j] = (uint8_t(0x8C)) ; i++;}else //   .
+
+          if(uint8_t(str[i]) == 0x80 && uint8_t(str[i+1]) == 0x8C){str[j] = (uint8_t(0x20)) ; i++;}else //   .
+
+          if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x80){str[j] = (uint8_t(0x8B)) ; i++;}else //   -
+         
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB3){str[j] = (uint8_t(0xA8)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB4){str[j] = (uint8_t(0xAA)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB5){str[j] = (uint8_t(0xAC)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB6){str[j] = (uint8_t(0xAE)) ; i++;}else  //�
+         
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB7){str[j] = (uint8_t(0xAF)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB8){str[j] = (uint8_t(0xE0)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xB9){str[j] = (uint8_t(0xE3)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xBA){str[j] = (uint8_t(0xE7)) ; i++;}else  //�
+
+         
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x81){str[j] = (uint8_t(0xEA)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x82){str[j] = (uint8_t(0xEC)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xDA && uint8_t(str[i+1]) == 0xA9){str[j] = (uint8_t(0xEE)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xDA && uint8_t(str[i+1]) == 0xAF){str[j] = (uint8_t(0xF0)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x84){str[j] = (uint8_t(0xF3)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x85){str[j] = (uint8_t(0xF5)) ; i++;}else  //�
+         if(uint8_t(str[i]) == 0xD9 && uint8_t(str[i+1]) == 0x86){str[j] = (uint8_t(0xF7)) ; i++;}else  //�
+          if(uint8_t(str[i]) == 0xD8 && uint8_t(str[i+1]) == 0xA6){str[j] = (uint8_t(0x8E)) ; i++;}else  //�
+                 
+      
+     {str[j] = (uint8_t) str[i];}  j++; i++;    
+    }   while(j<i){str[j]=0; j++;}
+ i=0;j=0;
+
+
+
+int s=0;
+
+while(str[s]){ 
+  s++;
+  }
+  
+
+
+char  text[s];
+
+ for (int i = 0; i < s; i++){ 
+ text[((s-1)-i)]=uint8_t(str[i]); 
+ }
+
+int  o=(strcmp(str,text));
+
+
+
+ if (o>0) {
+   for (int i = 0; i < s; i++){ 
+ text[(i)]=uint8_t(str[i]); 
+  }
+ 
+  }else
+
+
+
+while(text[i]){ 
+  
+  
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0x20) {text[i] = (uint8_t(0x90)) ; }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0xA2) {text[i] = (uint8_t(0x90));  }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0xA3) {text[i] = (uint8_t(0x90)) ;  }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0xA4) {text[i] = (uint8_t(0x90));   }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0xA5) {text[i] = (uint8_t(0x90)) ;  }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0xA6) {text[i] = (uint8_t(0x90))  ; }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0xF8) {text[i] = (uint8_t(0x90)) ;  }else // �
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i-1]) == 0x91) {text[i] = (uint8_t(0x90)) ;  }else // �
+
+if(uint8_t(text[i]) == 0x91 && uint8_t(text[i+1]) == 0x91) {text[i] = (uint8_t(0x90))  ; }else // �
+
+
+if(uint8_t(text[i]) == 0x93 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x92))  ; }else //  �  
+if(uint8_t(text[i]) == 0x95 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x94))  ; }else //�
+if(uint8_t(text[i]) == 0x97 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x96)) ;  }else //�
+if(uint8_t(text[i]) == 0x99 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x98)) ;  }else //�
+if(uint8_t(text[i]) == 0x9B && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x9A)) ;  }else //�
+if(uint8_t(text[i]) == 0x9D && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x9C)) ;  }else //�
+if(uint8_t(text[i]) == 0x9F && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x9E)) ;  }else //�
+if(uint8_t(text[i]) == 0xA1 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xA0)) ;  }else //�
+if(uint8_t(text[i]) == 0xA8 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xA7)) ;  }else //�
+if(uint8_t(text[i]) == 0xAA && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xA9)) ;  }else //�
+if(uint8_t(text[i]) == 0xAC && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xAB)) ;  }else //�
+if(uint8_t(text[i]) == 0xAE && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xAD)) ;  }else //�
+if(uint8_t(text[i]) == 0xEA && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xE9)) ;  }else //�
+if(uint8_t(text[i]) == 0xEC && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xEB))  ; }else //�
+if(uint8_t(text[i]) == 0xEE && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xED))  ; }else //�
+if(uint8_t(text[i]) == 0xF0 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xEF)) ;  }else //�
+if(uint8_t(text[i]) == 0xF3 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xF1)) ;  }else //�
+
+
+
+if(uint8_t(text[i]) == 0xF3 && uint8_t(text[i+1]) == 0x91) {text[i] = (uint8_t(0xF3))  ; }else // �
+
+if(uint8_t(text[i]) == 0xF5 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xF4)) ;  }else //�
+if(uint8_t(text[i]) == 0xF7 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xF6)) ;  }else //�
+
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xF9))   ;}else //�
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0x20) {text[i] = (uint8_t(0xFB))  ; }else // �
+
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xFB)) ;  }else //�
+
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0xA2) {text[i] = (uint8_t(0xF9))  ; }else // �
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0xA3) {text[i] = (uint8_t(0xF9))  ; }else // �
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0xA4) {text[i] = (uint8_t(0xF9))  ; }else // �
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0xA5) {text[i] = (uint8_t(0xF9))  ; }else // �
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0xA6) {text[i] = (uint8_t(0xF9))  ; }else // �
+if(uint8_t(text[i]) == 0xFA && uint8_t(text[i+1]) == 0xF8) {text[i] = (uint8_t(0xF9))  ; }else // �
+
+
+
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0x20) {text[i] = (uint8_t(0xE4)) ;  }else //�
+
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0x8D&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1)) ;  }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0x91&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1)) ;  }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0xA2&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1)) ;  }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0xA3&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1));   }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0xA4&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1));   }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0xA5&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1))   ;}else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0xA6&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1))  ; }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i+1]) == 0xF8&& uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE1)) ;  }else // �
+if(uint8_t(text[i]) == 0xE3 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xE2)) ;  }else //�
+
+
+
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0x20) {text[i] = (uint8_t(0xE8));   }else //�
+
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0x91 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5))  ; }else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0x8D && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5)) ;  }else // �
+
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0xA2 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5));   }else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0xA3 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5))  ; }else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0xA4 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5)) ;  }else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0xA5 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5))   ;}else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0xA6 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5))  ; }else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i+1]) == 0xF8 && uint8_t(text[i-1]) ==0x20) {text[i] = (uint8_t(0xE5)) ;  }else // �
+if(uint8_t(text[i]) == 0xE7 && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xE6))  ; }else //�
+
+
+if(uint8_t(text[i]) == 0xFE && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0xFC))  ; }else //�
+if(uint8_t(text[i]) == 0x8E && uint8_t(text[i-1]) == 0x20) {text[i] = (uint8_t(0x8F))  ; }else //�
+
+if(uint8_t(text[i]) == 0x00                              )  {text[i] = (uint8_t(0x00))  ; }else //" "
+
+
+if(uint8_t(text[i]) == 0x20                              )  {text[i] = (uint8_t(0x20)) ;  }else //" "
+
+if(uint8_t(text[i]) == 0x30                              )  {text[i] = (uint8_t(0x80))  ; }else //0-9
+if(uint8_t(text[i]) == 0x31                              )  {text[i] = (uint8_t(0x81))  ; }else //0-9
+
+if(uint8_t(text[i]) == 0x32                              )  {text[i] = (uint8_t(0x82)) ;  }else //0-9
+if(uint8_t(text[i]) == 0x33                              )  {text[i] = (uint8_t(0x83))  ; }else //0-9
+if(uint8_t(text[i]) == 0x34                              )  {text[i] = (uint8_t(0x84))  ; }else //0-9
+if(uint8_t(text[i]) == 0x35                              )  {text[i] = (uint8_t(0x85))  ; }else //0-9
+if(uint8_t(text[i]) == 0x36                              )  {text[i] = (uint8_t(0x86))  ; }else //0-9
+if(uint8_t(text[i]) == 0x37                              )  {text[i] = (uint8_t(0x87))   ;}else //0-9
+if(uint8_t(text[i]) == 0x38                              )  {text[i] = (uint8_t(0x88))   ;}else //0-9
+if(uint8_t(text[i]) == 0x39                              )  {text[i] = (uint8_t(0x89))   ;}else //0-9
+int b=b+1;
+ i++;
+  }
+
+for (int i = 0; i < s; i++){ str[i]=(text[i]);  }
+
+return  str;
+
+}
